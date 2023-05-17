@@ -1,0 +1,13 @@
+[
+  {
+      "model_name": "LinearRegression",
+      "sweep_name": "baseline",
+      "batch_size": 64,
+      "wandb": true,
+      "input_names": ["ECG", "accelZ", "ppg_ir_1_cardiac"],
+      "feature_names": ["HR_patch", "weight", "height", "gender", "age", "0.00Hz", "3.91Hz", "7.81Hz", "11.72Hz", "15.62Hz", "19.53Hz", "23.44Hz"],
+      "output_names": ["EE_cosmed"],
+      "output_dim": 1,
+      "meta_names": ["subject_id", "task"]
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+      "model_name": "cnn",
+      "sweep_name": "baseline",
+      "kernel_size": [10], 
+      "channel_n": 16,
+      "num_epochs": 3, 
+      "batch_size": 64, 
+      "learning_rate": 0.001, 
+      "cuda_i": 0, 
+      "use_sc": true,
+      "wandb": true,
+      "input_names": ["ECG", "accelZ", "ppg_r_1"],
+      "feature_names": ["HR_patch", "weight"],
+      "output_names": ["RR_cosmed"],
+      "meta_names": ["subject_id", "task"]
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {   
+      "model_name": "CNNlight",
+      "sweep_name": "aux_weights",
+      "wandb": true,
+      "num_epochs": 25,
+      "cuda_i": 0,
+      "i_rep": 2,
+
+      "use_spectral_atn": true,
+      "use_channel_atn": true,
+      
+      "use_spectral_smoother": false,
+      
+      "model_arch": "cardioresp_multiverse",
+
+      "regressor_type": "CardioRespXGBRegression",
+      "auxillary_regressor_type": "DominantFreqRegression",
+      
+      "n_demographic": 4,
+      "feature_names": ["weight", "height", "BMI", "gender"],
+      "main_task": ["VO2_cosmedweighted"],
+      "auxillary_tasks": ["HR_patch", "RR_cosmed"],
+      
+      "auxillary_loss_weight": 0.1,
+      "adaptive_loss_name": "fixed",
+      
+      "stride": 2,
+      "pad_type": "reflect",
+      "kernels": {
+              "k1": 5,
+              "k2": 9,
+              "k3": 13},
+      "hidden_dim": 100,
+
+      "channel_n": 8,
+      "batch_size": 64,
+      "normalization": "input_normed_clipped2std",
+      "learning_rate": 0.005,
+      "optimizer_name": "Adam",
+
+      
+      "show_plot": false,
+      "input_names": {
+          "ECG": ["ECG_filt"],
+          "SCG": ["scgX", "scgY", "scgZ"],
+          "PPG": ["ppg_r_1_resp", "ppg_r_2_resp", "ppg_ir_1_resp", "ppg_ir_2_resp"]
+      },
+      "output_dim": 1,
+      "meta_names": ["subject_id", "task", "VT_cosmed"],
+      "training_mode": "subject_ind",
+
+      "sweep_config": {
+          "program": "train_master.py",
+          "method": "grid",
+          "metric": {
+              "goal": "minimize",
+              "name": "val_MAE"},
+          "parameters": {
+              "i_rep": {
+                  "values": [0,1,2,3,4]
+              },
+              "auxillary_loss_weight": {
+                  "values": [0, 0.1, 0.2, 0.3, 0.4, 0.5]
+              },
+              "regressor_type": {
+                  "values": ["CardioRespRegression"]
+              }
+          }
+      }      
+    }
+]

@@ -1,0 +1,15 @@
+[
+  {
+      "list_signal" : ["ECG_filt", "scgX", "scgY", "scgZ", "accelX_filt", "accelY_filt", "accelZ_filt", "ppg_ir_1_resp", "ppg_r_1_resp",  "ppg_ir_2_resp", "ppg_r_2_resp", "ppg_ir_1_cardiac", "ppg_r_1_cardiac",  "ppg_ir_2_cardiac", "ppg_r_2_cardiac"],
+      "list_feature" : ["HR_patch", "HR_patchnormed", "VE_cosmed", "scgX_std","scgX_CO", "scgY_std","scgY_CO", "scgZ_std","scgZ_CO", "scgXYZ_std","scgXYZ_CO", "weight", "EErq_est", "VT_est"],
+      "list_output" : ["RR_cosmed", "VT_cosmed", "EErq_cosmed", "VO2_cosmed", "HR_cosmed", "HR_patch", "HR_patchnormed", "resp_cosmed" ,"O2pulse_cosmedpatch", "EErq_cosmedweighted", "VO2_cosmedweighted", "EErq_cosmeddelta", "VO2_cosmeddelta", "EErq_weighted_cosmeddelta", "VO2_weighted_cosmeddelta"],
+      "list_meta" : ["subject_id", "task", "VT_cosmed"],
+      "FS_RESAMPLE_DL": 100,
+      "window_size": 60,
+      "overlap": 0.9,
+      "task_names": ["Baseline 0", "Recovery 0", "Recovery 1", "Recovery 2", "Recovery 3", "Recovery 4", "6MWT 0", "6MWT-R 0", "StairDown0", "StairUp0", "StairDown1", "Walk 0", "Run 0"],
+      "signal_normalization": "none",
+      "sequence": false,
+      "extract_resp": true
+  }
+]

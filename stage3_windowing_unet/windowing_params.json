@@ -1,0 +1,11 @@
+[
+  {
+    "window_size": 60,
+    "overlap": 0.95,
+    "seq_len": 20,
+    "normalization": true,
+    "remove_outliers": false,
+    "debug_TF": false
+  }
+]
+

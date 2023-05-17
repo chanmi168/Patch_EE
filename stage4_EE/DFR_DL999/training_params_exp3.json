@@ -1,0 +1,70 @@
+[
+  {   
+      "model_name": "CNNlight",
+      "sweep_name": "prepare_figures",
+
+      "channel_n": 8,
+      "num_epochs": 25,
+      "batch_size": 64,
+      "normalization": "input_normed_clipped2std",
+      "learning_rate": 0.005,
+      "optimizer_name": "Adam",
+      "cuda_i": 1,
+      "use_sc": true,
+      
+      "i_rep": 0,
+      
+      "use_spectral_atn": true,
+      "use_channel_atn": true,
+      
+      "fusion_type": "late",
+      "pooling_type": "avg_pooling",
+      
+      "stride": 2,
+      "pad_type": "reflect",
+      "kernels": {
+              "k1": 5,
+              "k2": 9,
+              "k3": 13},
+      "n_block": 4,
+      "hidden_dim": 100,
+      "dominantFreq_detect": "expectation",
+      "regressor_type": "CardioRespXGBRegression",
+      "auxillary_regressor_type": "DominantFreqRegression",
+      "CR_attention": true,
+
+      "wandb": true,
+      "show_plot": true,
+      "input_names": {
+          "ECG": ["ECG_filt"],
+          "SCG": ["scgX", "scgY", "scgZ"],
+          "PPG": ["ppg_r_1_resp", "ppg_r_2_resp", "ppg_ir_1_resp", "ppg_ir_2_resp"]
+      },
+      
+      "feature_names": ["weight", "height", "HR_patch"],
+      "main_task": ["VO2_cosmedweighted"],
+      "auxillary_tasks": ["HR_patch", "RR_cosmed"],
+      "main_loss_weight": 1,
+      "auxillary_loss_weight": 1000,
+      "adaptive_loss_name": "fixed",
+      "output_dim": 1,
+      "meta_names": ["subject_id", "task", "VT_cosmed"],
+      "training_mode": "subject_ind",
+
+      "sweep_config": {
+          "program": "train_master.py",
+          "method": "grid",
+          "metric": {
+              "goal": "minimize",
+              "name": "val_MAE"},
+          "parameters": {
+              "use_spectral_atn": {
+                  "values": [false, true]
+              },
+              "use_channel_atn": {
+                  "values": [false, true]
+              }
+          }
+      }      
+    }
+]

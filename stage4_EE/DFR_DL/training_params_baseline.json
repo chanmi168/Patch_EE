@@ -1,0 +1,62 @@
+[
+  {   
+      "model_name": "CNNlight",
+      "sweep_name": "baseline",
+
+      "channel_n": 8,
+      "num_epochs": 100,
+      "batch_size": 64,
+      "normalization": "input_normed_clipped2std",
+      "learning_rate": 0.005,
+      "optimizer_name": "Adam",
+      "cuda_i": 1,
+      "use_sc": true,
+      "fusion_type": "late",
+      "pooling_type": "avg_pooling",
+      
+      "stride": 2,
+      "pad_type": "reflect",
+      "kernels": {
+              "k1": 5,
+              "k2": 9,
+              "k3": 13},
+      "n_block": 4,
+      "dominantFreq_detect": "expectation",
+      "regressor_type": "CardioRespXGBRegression",
+      "auxillary_regressor_type": "DominantFreqRegression",
+
+      "wandb": true,
+      "input_names": ["ppg_r_1_resp", "scgZ"],
+      "attention_sig_name": "ppg_r_1_resp",
+      "output_sig_name": "scg",
+      "feature_names": ["weight", "height"],
+      "main_task": ["VO2_cosmed"],
+      "auxillary_tasks": ["RR_cosmed"],
+      "output_dim": 1,
+      "loss_weights": {
+          "main_task": 0.005,
+          "auxillary_task": 1
+      },
+      "meta_names": ["subject_id", "task"],
+      "training_mode": "subject_ind",
+
+      "sweep_config": {
+          "program": "train_master.py",
+          "method": "grid",
+          "metric": {
+              "goal": "minimize",
+              "name": "val_MAE"},
+          "parameters": {
+              "input_names": {
+                  "values": [["ppg_r_1_resp", "scgZ"], ["ppg_r_1_resp", "scgY", "scgZ"]]
+              },
+              "regressor_type": {
+                  "values": ["CardioRespXGBRegression", "CardioRespRegression"]
+              },
+              "feature_names": {
+                  "values": [["weight", "height"], ["weight", "height", "HR_patch"], ["weight", "height", "scg_std", "HR_patch", "CO_patchsur", "0.00Hz", "3.91Hz", "7.81Hz", "11.72Hz", "15.62Hz", "19.53Hz", "23.44Hz", "HR_patchnormed"]]
+              }
+          }
+      }      
+    }
+]

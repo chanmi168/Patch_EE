@@ -1,0 +1,54 @@
+[
+  {
+      "model_name": "ResNet1D",
+      "sweep_name": "baseline",
+      
+      "ordered_subject_ids": [101, 103, 104, 106, 107, 110, 111, 115, 116, 117, 118, 119, 120, 121, 113],
+      "kernel_size": 10,
+      "channel_n": 4,
+      "num_epochs": 50,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "cuda_i": 1,
+      "use_sc": true,
+      "fusion_type": "late",
+      "pooling_type": "avg_pooling",
+      
+      "stride": 2,
+      "groups": 1,
+      "downsample_gap": 2,
+      "n_block_macro": 5,
+      "pad_type": "reflect",
+
+      "wandb": true,
+      "input_names": ["ECG_filt", "scgZ", "ppg_ir_1_cardiac"],
+      "feature_names": ["weight", "height", "EEavg_est", "scg_std", "HR_patch", "CO_patchsur"],
+      "output_names": ["EErq_cosmed"],
+      "output_dim": 1,
+      "loss_weights": {
+          "main_task": 1,
+          "auxillary_task": 0.1
+      },
+      "meta_names": ["subject_id", "task",  "EEavg_est", "VTavg_est", "weight"],
+      "training_mode": "subject_ind",
+
+      "sweep_config": {
+          "program": "train_master.py",
+          "method": "grid",
+          "metric": {
+              "goal": "minimize",
+              "name": "val_MAE"},
+          "parameters": {
+              "loss_weights": {
+                  "values": [0, 0.5, 1, 3]
+              },
+              "input_names": {
+                  "values": [["ECG_filt", "scgZ", "ppg_ir_1_resp"]]
+              },
+              "output_names": {
+                  "values": [["EErq_cosmedperc", "HR_patch"], ["EErq_cosmed", "HR_patch"]]
+              }
+          }
+      }      
+    }
+]

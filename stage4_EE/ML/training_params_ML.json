@@ -1,0 +1,39 @@
+[
+  {
+      "model_name": "LinearRegression",      
+      "i_rep": 0,
+
+      "batch_size": 64,
+      "wandb": false,
+      "n_layers": 3,
+      "input_names": {
+          "ECG": ["ECG_filt"],
+          "SCG": ["scgX", "scgY", "scgZ"],
+          "PPG": ["ppg_r_1_resp", "ppg_r_2_resp", "ppg_ir_1_resp", "ppg_ir_2_resp"]
+      },
+      "feature_names": ["weight", "height", "age"],
+      "output_names": ["VO2_cosmedweighted"],
+      "output_dim": 1,
+      "meta_names": ["subject_id", "task", "VT_cosmed"],
+      "training_mode": "subject_ind",
+      
+      "sweep_config": {
+          "program": "train_master.py",
+          "method": "grid",
+          "metric": {
+              "goal": "minimize",
+              "name": "val_MAE"},
+          "parameters": {
+              "i_rep": {
+                  "values": [0,1,2,3,4]
+              },
+              "model_name": {
+                  "values": ["XGBRegressor", "MLPRegressor"]
+              },
+              "feature_names": {
+                  "values": [["weight", "height", "BMI", "gender"], ["weight", "height", "BMI", "gender", "HR_patch", "scgX_0.00Hz", "scgX_3.91Hz", "scgX_7.81Hz", "scgX_11.72Hz", "scgX_15.62Hz", "scgX_19.53Hz", "scgX_23.44Hz", "scgY_0.00Hz", "scgY_3.91Hz", "scgY_7.81Hz", "scgY_11.72Hz", "scgY_15.62Hz", "scgY_19.53Hz", "scgY_23.44Hz", "scgZ_0.00Hz", "scgZ_3.91Hz", "scgZ_7.81Hz", "scgZ_11.72Hz", "scgZ_15.62Hz", "scgZ_19.53Hz", "scgZ_23.44Hz"], ["weight", "height", "HR_patch", "scgY_0.00Hz", "scgY_3.91Hz", "scgY_7.81Hz", "scgY_11.72Hz", "scgY_15.62Hz", "scgY_19.53Hz", "scgY_23.44Hz", "scgZ_0.00Hz", "scgZ_3.91Hz", "scgZ_7.81Hz", "scgZ_11.72Hz", "scgZ_15.62Hz", "scgZ_19.53Hz", "scgZ_23.44Hz", "scgXYZ_0.00Hz", "scgXYZ_3.91Hz", "scgXYZ_7.81Hz", "scgXYZ_11.72Hz", "scgXYZ_15.62Hz", "scgXYZ_19.53Hz", "scgXYZ_23.44Hz"]]
+              }
+          }
+      }
+  }
+]

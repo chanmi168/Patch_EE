@@ -1,0 +1,14 @@
+[
+  {
+      "list_signal" : ["ECG_filt", "scgZ", "ppg_g_1_resp", "ppg_ir_1_resp", "ppg_r_1_resp", "ppg_g_1_cardiac", "ppg_ir_1_cardiac", "ppg_r_1_cardiac", "ppg_g_2_resp", "ppg_ir_2_resp", "ppg_r_2_resp", "ppg_g_2_cardiac", "ppg_ir_2_cardiac", "ppg_r_2_cardiac"],
+      "list_feature" : ["HR_patch", "HR_patchnormed", "scg_std", "scg_std_perc", "VE_cosmed", "CO_patchsur"],
+      "list_output" : ["RR_cosmed", "VT_cosmed", "EE_cosmed", "HR_cosmed", "EErq_cosmed", "HR_patch","HR_patchnormed", "VO2_cosmed", "resp_cosmed" ,"O2pulse_cosmedpatch", "VT_cosmedperc", "EErq_cosmedperc", "EErq_cosmedweighted", "EErq_cosmeddelta"],  
+      "list_meta" : ["subject_id", "task", "EEavg_est", "VTavg_est", "weight"],
+      "FS_RESAMPLE_DL": 100,
+      "window_size": 8,
+      "overlap": 0.75,
+      "task_names": ["Baseline 0", "Recovery 0", "Recovery 1", "Recovery 2", "6MWT 0", "Recovery 3", "Recovery 4"],
+      "signal_normalization": "none",
+      "sequence": false
+  }
+]

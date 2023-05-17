@@ -1,0 +1,68 @@
+[
+  {
+      "model_name": "CNNlight-DANN",
+      "sweep_name": "baseline",
+      
+      "ordered_subject_ids": [107,121, 117, 101, 102, 103, 104, 105, 106, 108, 110, 111, 113, 114, 115, 116, 118, 119, 120],
+      "backup_subject_ids": [121, 119, 117, 115, 111, 104, 101, 103, 106, 116, 118, 120, 113],
+      "channel_n": 8,
+      "num_epochs": 400,
+      "batch_size": 64,
+      "normalization": "input_normed_clipped2std",
+      "learning_rate": 0.001,
+      "cuda_i": 1,
+      "use_sc": true,
+      "fusion_type": "late",
+      "pooling_type": "avg_pooling",
+      
+      "stride": 2,
+      "pad_type": "reflect",
+      "kernels": {
+              "k1": 5,
+              "k2": 9,
+              "k3": 13},
+      "n_block": 8,
+      "dominantFreq_detect": "expectation",
+      "regressor_type": "RespiratoryRegression",
+      
+      "input_names": ["scgZ"],
+      "feature_names": [],
+      "output_names": ["HR_patch"],
+      "activity_names": [0],
+      "output_dim": 1,
+      "loss_weights": {
+          "main_task": 1,
+          "auxillary_task": 0
+      },
+      "DR_mode": "PCA", 
+      "adversarial_weight": 0,
+      "label_range": "label+estimated",
+      
+      "meta_names": ["subject_id", "task",  "EEavg_est", "VTavg_est", "weight"],
+      "training_mode": "subject_ind",
+
+      "wandb": true,
+
+      "sweep_config": {
+          "program": "train_master.py",
+          "method": "grid",
+          "metric": {
+              "goal": "minimize",
+              "name": "val_MAE"},
+          "parameters": {
+              "input_names": {
+                  "values": [["scgZ"]]
+              },
+              "n_block": {
+                  "values": [8, 7, 6, 5, 4, 3, 2]
+              },
+              "channel_n": {
+                  "values": [8]
+              },
+              "regressor_type": {
+                  "values": ["RespiratoryRegression"]
+              }
+          }
+      }      
+    }
+]

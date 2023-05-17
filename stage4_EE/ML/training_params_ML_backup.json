@@ -1,0 +1,28 @@
+[
+  {
+      "model_name": "MLPRegressor",
+      "batch_size": 64,
+      "wandb": false,
+      "input_names": ["ECG_filt", "scgZ", "ppg_ir_1_cardiac"],
+      "feature_names": ["weight", "height", "scg_std", "HR_patch", "CO_patchsur", "0.00Hz", "3.91Hz", "7.81Hz", "11.72Hz", "15.62Hz", "19.53Hz", "23.44Hz", "HR_patchnormed"],
+      "output_names": ["VO2_cosmed"],
+      "output_dim": 1,
+      "meta_names": ["subject_id", "task"],
+      "training_mode": "subject_ind",
+      "sweep_config": {
+          "program": "train_master.py",
+          "method": "grid",
+          "metric": {
+              "goal": "minimize",
+              "name": "val_MAE"},
+          "parameters": {
+              "output_names": {
+                  "values": [["EErq_cosmeddelta"], ["EErq_cosmedperc"], ["EErq_cosmed"]]
+              },
+              "feature_names": {
+                  "values": [["weight", "height", "EEavg_est", "scg_std", "HR_patch", "CO_patchsur"], ["weight", "height", "EEavg_est", "scg_std", "HR_patch", "CO_patchsur", "0.00Hz", "3.91Hz", "7.81Hz", "11.72Hz", "15.62Hz", "19.53Hz", "23.44Hz"],  ["weight", "height", "EEavg_est", "scg_std", "HR_patch", "CO_patchsur", "0.00Hz", "3.91Hz", "7.81Hz", "11.72Hz", "15.62Hz", "19.53Hz", "23.44Hz", "scg_std_perc", "HR_patchnormed"]]
+              }
+          }
+      }
+  }
+]
